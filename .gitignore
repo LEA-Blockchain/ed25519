@@ -19,6 +19,7 @@
 *.su
 *.su.*
 *.gen.*
+*.wasm
 tests/formal-analysis/*
 tests/formal-analysis
 *.tar.gz

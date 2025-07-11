@@ -1,0 +1,30 @@
+STDLEA_CFLAGS   = -I/usr/local/include/stdlea
+STDLEA_LDFLAGS  = -L/usr/local/lib -lstdlea
+
+CFLAGS_WASM_BASE    := --target=wasm32 -ffreestanding -nostdlib -Wl,--no-entry -Os -Wall -Wextra -pedantic
+CFLAGS_WASM_FEATURES:= -mbulk-memory -msign-ext -mmultivalue
+CFLAGS_WASM         = $(CFLAGS_WASM_BASE) $(CFLAGS_WASM_FEATURES) $(STDLEA_CFLAGS) -flto -Isrc
+
+SRCS    = ed25519.c src/monocypher.c src/optional/monocypher-ed25519.c randombytes.c
+TARGET  = ed25519.wasm
+
+.PHONY: all clean test
+
+all: $(TARGET)
+
+$(TARGET): $(SRCS)
+	@echo "Compiling and linking sources to $(TARGET)..."
+	clang $(CFLAGS_WASM) $^ $(STDLEA_LDFLAGS) -o $@
+	@echo "Stripping custom sections..."
+	wasm-strip $@
+	@echo "Dumping section and export info:"
+	wasm-objdump -x $@
+	@echo "Build complete: $(TARGET)"
+
+test: $(TARGET)
+	@echo "Running tests..."
+	@node test.js $(TARGET)
+
+clean:
+	@echo "Removing build artifacts..."
+	rm -f $(TARGET) *.o

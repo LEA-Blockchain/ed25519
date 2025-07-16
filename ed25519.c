@@ -1,3 +1,7 @@
+// Copyright (c) 2025 LEA Chain
+// This file is licensed under the MIT license.
+// See the LICENSE file in the project root for more information.
+
 #include "randombytes.h"
 #include "src/monocypher.h"
 #include "src/optional/monocypher-ed25519.h"

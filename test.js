@@ -61,15 +61,13 @@ async function main() {
 
     const importObject = {
         env: {
-            __lea_log: (ptr) => {
-                if (!memory) return;
-                const mem = new Uint8Array(memory.buffer);
-                const end = mem.indexOf(0, ptr);
-                const message = new TextDecoder('utf-8').decode(mem.subarray(ptr, end));
-                console.error(`${wasmPath}: ${message}`);
+            __lea_abort: (_line) => {
+                const line = Number(_line);
+                console.log(`[ABORT] at line ${line}\n`);
+                process.exit(1);
             },
 
-            __lea_log2: (ptr, len) => {
+            __lea_log: (ptr, len) => {
                 if (!memory) return;
                 const _len = Number(len);
                 const mem = new Uint8Array(memory.buffer, ptr, _len);

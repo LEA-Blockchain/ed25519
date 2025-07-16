@@ -13,13 +13,14 @@ Designers
 Implementors
 ------------
 
-- **ChaCha20:** Loup Vaillant, implemented from spec.
-- **Poly1305:** Loup Vaillant, implemented from spec.
-- **BLAKE2b:**  Loup Vaillant, implemented from spec.
-- **Argon2i:**  Loup Vaillant, implemented from spec.
-- **X25519:**   Daniel J. Bernstein, taken and packaged from SUPERCOP
-                ref10.
-- **EdDSA:**    Loup Vaillant, with bits and pieces from SUPERCOP ref10.
+- **WASM wrapper:** Allwin Ketnawang
+- **ChaCha20:**     Loup Vaillant, implemented from spec.
+- **Poly1305:**     Loup Vaillant, implemented from spec.
+- **BLAKE2b:**      Loup Vaillant, implemented from spec.
+- **Argon2i:**      Loup Vaillant, implemented from spec.
+- **X25519:**       Daniel J. Bernstein, taken and packaged from SUPERCOP
+                    ref10.
+- **EdDSA:**        Loup Vaillant, with bits and pieces from SUPERCOP ref10.
 
 Test suite
 ----------

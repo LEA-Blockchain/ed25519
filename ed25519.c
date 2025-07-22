@@ -28,12 +28,14 @@ LEA_EXPORT(sign)
 int sign(uint8_t *sig, const uint8_t *m, size_t mlen, const uint8_t *sk)
 {
     crypto_ed25519_sign(sig, sk, m, mlen);
-    return 0;
+    return SIG_BYTES;
 }
 
 LEA_EXPORT(verify)
-int verify(const uint8_t *sig, const uint8_t *m, size_t mlen, const uint8_t *pk)
+int verify(const uint8_t *sig, size_t sig_len, const uint8_t *m, size_t mlen, const uint8_t *pk)
 {
+    if (SIG_BYTES != sig_len)
+        LEA_ABORT();
     return crypto_ed25519_check(sig, pk, m, mlen);
 }
 

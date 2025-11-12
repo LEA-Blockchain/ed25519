@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdlea.h>
 
 #define SEED_BYTES 32
@@ -21,6 +22,15 @@ int keygen(uint8_t *pk, uint8_t *sk)
     uint8_t seed[SEED_BYTES];
     randombytes(seed, SEED_BYTES);
     crypto_ed25519_key_pair(sk, pk, seed);
+    return 0;
+}
+
+LEA_EXPORT(keygen_from_seed)
+int keygen_from_seed(uint8_t *pk, uint8_t *sk, const uint8_t *seed)
+{
+    uint8_t seed_copy[SEED_BYTES];
+    memcpy(seed_copy, seed, SEED_BYTES);
+    crypto_ed25519_key_pair(sk, pk, seed_copy);
     return 0;
 }
 
@@ -40,6 +50,12 @@ int verify(const uint8_t *sig, size_t sig_len, const uint8_t *m, size_t mlen, co
 }
 
 // --- Exported Constants for Buffer Sizes ---
+LEA_EXPORT(seed_bytes)
+int seed_bytes()
+{
+    return SEED_BYTES;
+}
+
 LEA_EXPORT(pk_bytes)
 int pk_bytes()
 {
